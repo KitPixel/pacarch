@@ -59,15 +59,17 @@
 
 ;;; Customize:
 ;;
-;;
-;;
+;; `pacarch-enforce-display-error'
+;; `pacarch-enforce-upgrade'
+;; `pacarch-executable-files'
+;; `pacarch-noconfirm'
 ;;
 ;; All of the above can customize by:
 ;;      M-x customize-group RET awesome-tray RET
 ;;
 
 ;;; TODO
-;;
+;; <TODO(KiteAB)> Continue writing pacarch-install-package-from-aur function [Tue Nov 10 21:29:19 2020]
 ;;
 ;;
 
@@ -77,7 +79,42 @@
   :prefix "pacarch-"
   :group 'applications)
 
+(defcustom pacarch-enforce-display-error t
+  "Used for `pacarch-is-arch-distros' function.
+Whether the `error' function."
+  :type 'boolean
+  :group 'pacarch)
 
+(defcustom pacarch-enforce-upgrade nil
+  "`t` is for 'pacman -Syy' and `nil` is for 'pacman -Sy'."
+  :type 'boolean
+  :group 'pacarch)
+
+(defcustom pacarch-executable-files '("pacman"
+                                      "yay")
+  "First value is Pacman name.
+Second value is AURTOOL name."
+  :type 'list
+  :group 'pacarch)
+
+(defcustom pacarch-noconfirm nil
+  "Add a '--noconfirm' argument or not.
+Not propose to amend!"
+  :type 'boolean
+  :group 'pacarch)
+
+
+(defun pacarch-is-executable-file-exists (file)
+  "Is executable files in `pacarch-executable-files' is exist?
+If not, then return error or warning by `pacarch-enforce-display-error'."
+  (if (not (executable-find file))
+      (if pacarch-enforce-display-error
+          (error "[PacArch/ERROR] Not in a Arch Linux distributions!")
+        (message "[PacArch/WARNING] Not in a Arch Linux distributions."))))
+
+(defun pacarch-install-package-from-aur ()
+  "Install package from Arch User Repository."
+  )
 
 (provide 'pacarch)
 
