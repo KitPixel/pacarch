@@ -1,0 +1,16 @@
+* PacArch
+  ~PacArch~ is an Emacs Package thats you can use it to install, upgrade, remove and search packages in Arch Linux and its distributions.
+
+** Installation
+*** Melpa
+    This package is not in melpa yet.
+
+*** From Source
+    You just need clone this repository to your directory and add the following lines to your configuration file:
+    #+begin_src emacs-lisp
+      (add-to-list 'load-path "path/to/pacarch.el/")
+      (require 'pacarch)
+    #+end_src
+
+** License
+   GNU General Public License, GPL-3.0
