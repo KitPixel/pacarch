@@ -61,15 +61,16 @@
 ;;
 ;; `pacarch-enforce-display-error'
 ;; `pacarch-enforce-upgrade'
-;; `pacarch-executable-files'
-;; `pacarch-noconfirm'
+;; `pacarch-pacman-filename'
+;; `pacarch-aurtool-filename'
+;; `pacarch-output-buffer-name'
 ;;
 ;; All of the above can customize by:
 ;;      M-x customize-group RET awesome-tray RET
 ;;
 
 ;;; TODO
-;; <TODO(KiteAB)> Continue writing pacarch-install-package-from-aur function [Tue Nov 10 21:29:19 2020]
+;;
 ;;
 ;;
 
@@ -78,6 +79,11 @@
   "Pacman in Emacs."
   :prefix "pacarch-"
   :group 'applications)
+
+(defcustom pacarch-aurtool-filename "yay"
+  "AURTOOL's filename."
+  :type 'string
+  :group 'pacarch)
 
 (defcustom pacarch-enforce-display-error t
   "Used for `pacarch-is-arch-distros' function.
@@ -90,31 +96,38 @@ Whether the `error' function."
   :type 'boolean
   :group 'pacarch)
 
-(defcustom pacarch-executable-files '("pacman"
-                                      "yay")
-  "First value is Pacman name.
-Second value is AURTOOL name."
-  :type 'list
+(defcustom pacarch-output-buffer-name "*PacArch Buffer*"
+  "Default buffer name you want."
+  :type 'string
   :group 'pacarch)
 
-(defcustom pacarch-noconfirm nil
-  "Add a '--noconfirm' argument or not.
-Not propose to amend!"
-  :type 'boolean
+(defcustom pacarch-pacman-filename "pacman"
+  "Pacman's filename."
+  :type 'string
   :group 'pacarch)
 
+
+(defun pacarch-install-pkg-from-aur ()
+  "Install package from Arch User Repository."
+  (interactive)
+  (pacarch-is-executable-file-exists pacarch-aurtool-filename)
+  (shell-command (concat pacarch-aurtool-filename
+                         " -S "
+                         (pacarch-get-pkgname pacarch-aurtool-filename)
+                         " --noconfirm")
+                 pacarch-output-buffer-name nil))
 
 (defun pacarch-is-executable-file-exists (file)
   "Is executable files in `pacarch-executable-files' is exist?
 If not, then return error or warning by `pacarch-enforce-display-error'."
   (if (not (executable-find file))
       (if pacarch-enforce-display-error
-          (error "[PacArch/ERROR] Not in a Arch Linux distributions!")
-        (message "[PacArch/WARNING] Not in a Arch Linux distributions."))))
+          (error (concat "[PacArch/ERROR] " file "not found!"))
+        (message "[PacArch/WARNING] " file "not found!"))))
 
-(defun pacarch-install-package-from-aur ()
-  "Install package from Arch User Repository."
-  )
+(defun pacarch-get-pkgname (exefile)
+  "Get package name from mini-buffer."
+  (read-from-minibuffer (concat "[PacArch] Package name you want to install use " exefile ": ")))
 
 (provide 'pacarch)
 
