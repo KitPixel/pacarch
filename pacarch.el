@@ -107,15 +107,31 @@ Whether the `error' function."
   :group 'pacarch)
 
 
+(defun pacarch-install-pkg ()
+  "Install package use pacman."
+  (interactive)
+  (pacarch-is-executable-file-exists pacarch-pacman-filename)
+  (shell-command (concat "echo "
+                         "\""
+                         (pacarch-get-passwd)
+                         "\" | "
+                         "sudo -S "
+                         pacarch-pacman-filename
+                         " -S "
+                         (pacarch-get-pkgname pacarch-pacman-filename)
+                         " --noconfirm")
+                 pacarch-output-buffer-name nil))
+
 (defun pacarch-install-pkg-from-aur ()
-  "Install package from Arch User Repository."
+  "Install package use AURTOOL."
   (interactive)
   (pacarch-is-executable-file-exists pacarch-aurtool-filename)
   (shell-command (concat pacarch-aurtool-filename
                          " -S "
                          (pacarch-get-pkgname pacarch-aurtool-filename)
                          " --noconfirm")
-                 pacarch-output-buffer-name nil))
+                 pacarch-output-buffer-name nil)
+  (message "[PacArch] Package installed."))
 
 (defun pacarch-is-executable-file-exists (file)
   "Is executable files in `pacarch-executable-files' is exist?
@@ -124,6 +140,10 @@ If not, then return error or warning by `pacarch-enforce-display-error'."
       (if pacarch-enforce-display-error
           (error (concat "[PacArch/ERROR] " file "not found!"))
         (message "[PacArch/WARNING] " file "not found!"))))
+
+(defun pacarch-get-passwd ()
+  "Get password for current user."
+  (read-passwd "[PacArch] Password: "))
 
 (defun pacarch-get-pkgname (exefile)
   "Get package name from mini-buffer."
