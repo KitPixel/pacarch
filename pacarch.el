@@ -86,7 +86,7 @@
   :group 'pacarch)
 
 (defcustom pacarch-enforce-display-error t
-  "Used for `pacarch-is-arch-distros' function.
+  "Used for `pacarch-is-executable-file-exists' function.
 Whether the `error' function."
   :type 'boolean
   :group 'pacarch)
@@ -111,7 +111,7 @@ Whether the `error' function."
   "Install package use pacman."
   (interactive)
   (pacarch-is-executable-file-exists pacarch-pacman-filename)
-  (shell-command (concat "echo "
+  (async-shell-command (concat "echo "
                          "\""
                          (pacarch-get-passwd)
                          "\" | "
@@ -120,18 +120,19 @@ Whether the `error' function."
                          " -S "
                          (pacarch-get-pkgname pacarch-pacman-filename)
                          " --noconfirm")
-                 pacarch-output-buffer-name nil))
+                 pacarch-output-buffer-name nil)
+  (message "[PacArch] Action Done."))
 
 (defun pacarch-install-pkg-from-aur ()
   "Install package use AURTOOL."
   (interactive)
   (pacarch-is-executable-file-exists pacarch-aurtool-filename)
-  (shell-command (concat pacarch-aurtool-filename
+  (async-shell-command (concat pacarch-aurtool-filename
                          " -S "
                          (pacarch-get-pkgname pacarch-aurtool-filename)
                          " --noconfirm")
                  pacarch-output-buffer-name nil)
-  (message "[PacArch] Package installed."))
+  (message "[PacArch] Action Done."))
 
 (defun pacarch-is-executable-file-exists (file)
   "Is executable files in `pacarch-executable-files' is exist?
