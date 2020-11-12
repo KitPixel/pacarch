@@ -6,8 +6,8 @@
 ;; Maintainer: KiteAB <kiteabpl@outlook.com>
 ;; Copyright (C) 2020, KiteAB, all rights reserved.
 ;; Created: 2020-11-10 20:41:29
-;; Version: 0.1
-;; Last-Updated: 2020-11-10 20:41:39
+;; Version: 0.2
+;; Last-Updated: 2020-11-12 18:28:11
 ;;           By: KiteAB
 ;; URL: https://github.com/KitPixel/pacarch.el
 ;; Keywords:
@@ -66,7 +66,7 @@
 ;; `pacarch-output-buffer-name'
 ;;
 ;; All of the above can customize by:
-;;      M-x customize-group RET awesome-tray RET
+;;      M-x customize-group RET pacarch RET
 ;;
 
 ;;; TODO
