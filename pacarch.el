@@ -115,6 +115,7 @@ Whether the `error' function."
                          (pacarch-get-pkgname pacarch-pacman-filename)
                          " --noconfirm")
                  pacarch-output-buffer-name nil)
+  (switch-to-buffer-other-window pacarch-output-buffer-name)
   (message "[PacArch] Install package action done."))
 
 (defun pacarch-is-executable-file-exists (file)
@@ -154,6 +155,7 @@ If not, then return error or warning by `pacarch-enforce-display-error'."
                            pacarch-pacman-filename
                            " -Sy ")
                    pacarch-output-buffer-name nil))
+  (switch-to-buffer-other-window pacarch-output-buffer-name)
   (message "[PacArch] Upgrade sources action done."))
 
 (defun pacarch-upgrade-pkgs ()
@@ -169,6 +171,7 @@ If not, then return error or warning by `pacarch-enforce-display-error'."
                          " -Su "
                          "--noconfirm")
                  pacarch-output-buffer-name nil)
+  (switch-to-buffer-other-window pacarch-output-buffer-name)
   (message "[PacArch] Upgrade packages action done."))
 
 (defun pacarch-upgrade-srcs-and-pkgs ()
@@ -193,6 +196,7 @@ If not, then return error or warning by `pacarch-enforce-display-error'."
                              pacarch-pacman-filename
                              " -Syu ")
                      pacarch-output-buffer-name nil)))
+  (switch-to-buffer-other-window pacarch-output-buffer-name)
   (message "[PacArch] Upgrade sources and packages action done."))
 
 (provide 'pacarch)
