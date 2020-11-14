@@ -6,8 +6,8 @@
 ;; Maintainer: KiteAB <kiteabpl@outlook.com>
 ;; Copyright (C) 2020, KiteAB, all rights reserved.
 ;; Created: 2020-11-10 20:41:29
-;; Version: 0.2
-;; Last-Updated: 2020-11-12 18:28:11
+;; Version: 0.3
+;; Last-Updated: 2020-11-14 13:24:11
 ;;           By: KiteAB
 ;; URL: https://github.com/KitPixel/pacarch.el
 ;; Keywords:
@@ -60,9 +60,8 @@
 ;;; Customize:
 ;;
 ;; `pacarch-enforce-display-error'
-;; `pacarch-enforce-upgrade'
+;; `pacarch-enforce-upgrade-srcs'
 ;; `pacarch-pacman-filename'
-;; `pacarch-aurtool-filename'
 ;; `pacarch-output-buffer-name'
 ;;
 ;; All of the above can customize by:
@@ -80,18 +79,13 @@
   :prefix "pacarch-"
   :group 'applications)
 
-(defcustom pacarch-aurtool-filename "yay"
-  "AURTOOL's filename."
-  :type 'string
-  :group 'pacarch)
-
 (defcustom pacarch-enforce-display-error t
   "Used for `pacarch-is-executable-file-exists' function.
 Whether the `error' function."
   :type 'boolean
   :group 'pacarch)
 
-(defcustom pacarch-enforce-upgrade nil
+(defcustom pacarch-enforce-upgrade-srcs nil
   "`t` is for 'pacman -Syy' and `nil` is for 'pacman -Sy'."
   :type 'boolean
   :group 'pacarch)
@@ -111,7 +105,7 @@ Whether the `error' function."
   "Install package use pacman."
   (interactive)
   (pacarch-is-executable-file-exists pacarch-pacman-filename)
-  (async-shell-command (concat "echo "
+  (shell-command (concat "echo "
                          "\""
                          (pacarch-get-passwd)
                          "\" | "
@@ -121,18 +115,7 @@ Whether the `error' function."
                          (pacarch-get-pkgname pacarch-pacman-filename)
                          " --noconfirm")
                  pacarch-output-buffer-name nil)
-  (message "[PacArch] Action Done."))
-
-(defun pacarch-install-pkg-from-aur ()
-  "Install package use AURTOOL."
-  (interactive)
-  (pacarch-is-executable-file-exists pacarch-aurtool-filename)
-  (async-shell-command (concat pacarch-aurtool-filename
-                         " -S "
-                         (pacarch-get-pkgname pacarch-aurtool-filename)
-                         " --noconfirm")
-                 pacarch-output-buffer-name nil)
-  (message "[PacArch] Action Done."))
+  (message "[PacArch] Install package action done."))
 
 (defun pacarch-is-executable-file-exists (file)
   "Is executable files in `pacarch-executable-files' is exist?
@@ -149,6 +132,68 @@ If not, then return error or warning by `pacarch-enforce-display-error'."
 (defun pacarch-get-pkgname (exefile)
   "Get package name from mini-buffer."
   (read-from-minibuffer (concat "[PacArch] Package name you want to install use " exefile ": ")))
+
+(defun pacarch-upgrade-srcs ()
+  "Upgrade sources in '/etc/pacman.conf'."
+  (interactive)
+  (pacarch-is-executable-file-exists pacarch-pacman-filename)
+  (if pacarch-enforce-upgrade
+      (shell-command (concat "echo "
+                             "\""
+                             (pacarch-get-passwd)
+                             "\" | "
+                             "sudo -S "
+                             pacarch-pacman-filename
+                             " -Syy ")
+                     pacarch-output-buffer-name nil)
+    (shell-command (concat "echo "
+                           "\""
+                           (pacarch-get-passwd)
+                           "\" | "
+                           "sudo -S "
+                           pacarch-pacman-filename
+                           " -Sy ")
+                   pacarch-output-buffer-name nil))
+  (message "[PacArch] Upgrade sources action done."))
+
+(defun pacarch-upgrade-pkgs ()
+  "Upgrade packages."
+  (interactive)
+  (pacarch-is-executable-file-exists pacarch-pacman-filename)
+  (shell-command (concat "echo "
+                         "\""
+                         (pacarch-get-passwd)
+                         "\" | "
+                         "sudo -S "
+                         pacarch-pacman-filename
+                         " -Su "
+                         "--noconfirm")
+                 pacarch-output-buffer-name nil)
+  (message "[PacArch] Upgrade packages action done."))
+
+(defun pacarch-upgrade-srcs-and-pkgs ()
+  "Upgrade sources and packages."
+  (interactive)
+  (pacarch-is-executable-file-exists pacarch-pacman-filename)
+  (let ((passwd (pacarch-get-passwd)))
+    (if pacarch-enforce-upgrade
+        (shell-command (concat "echo "
+                               "\""
+                               passwd
+                               "\" | "
+                               "sudo -S "
+                               pacarch-pacman-filename
+                               " -Syyu ")
+                       pacarch-output-buffer-name nil)
+      (shell-command (concat "echo "
+                             "\""
+                             passwd
+                             "\" | "
+                             "sudo -S "
+                             pacarch-pacman-filename
+                             " -Syu ")
+                     pacarch-output-buffer-name nil)))
+  (message "[PacArch] Upgrade sources and packages action done."))
 
 (provide 'pacarch)
 
