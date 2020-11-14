@@ -7,7 +7,7 @@
 ;; Copyright (C) 2020, KiteAB, all rights reserved.
 ;; Created: 2020-11-10 20:41:29
 ;; Version: 0.3
-;; Last-Updated: 2020-11-14 13:24:11
+;; Last-Updated: 2020-11-14 13:42:54
 ;;           By: KiteAB
 ;; URL: https://github.com/KitPixel/pacarch.el
 ;; Keywords:
@@ -138,7 +138,7 @@ If not, then return error or warning by `pacarch-enforce-display-error'."
   "Upgrade sources in '/etc/pacman.conf'."
   (interactive)
   (pacarch-is-executable-file-exists pacarch-pacman-filename)
-  (if pacarch-enforce-upgrade
+  (if pacarch-enforce-upgrade-srcs
       (shell-command (concat "echo "
                              "\""
                              (pacarch-get-passwd)
@@ -179,7 +179,7 @@ If not, then return error or warning by `pacarch-enforce-display-error'."
   (interactive)
   (pacarch-is-executable-file-exists pacarch-pacman-filename)
   (let ((passwd (pacarch-get-passwd)))
-    (if pacarch-enforce-upgrade
+    (if pacarch-enforce-upgrade-srcs
         (shell-command (concat "echo "
                                "\""
                                passwd
