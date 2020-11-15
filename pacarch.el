@@ -145,7 +145,8 @@ If not, then return error or warning by `pacarch-enforce-display-error'."
                              "\" | "
                              "sudo -S "
                              pacarch-pacman-filename
-                             " -Syy ")
+                             " -Syy "
+                             "--noconfirm")
                      pacarch-output-buffer-name nil)
     (shell-command (concat "echo "
                            "\""
@@ -153,7 +154,8 @@ If not, then return error or warning by `pacarch-enforce-display-error'."
                            "\" | "
                            "sudo -S "
                            pacarch-pacman-filename
-                           " -Sy ")
+                           " -Sy "
+                           "--noconfirm")
                    pacarch-output-buffer-name nil))
   (switch-to-buffer-other-window pacarch-output-buffer-name)
   (message "[PacArch] Upgrade sources action done."))
@@ -186,7 +188,8 @@ If not, then return error or warning by `pacarch-enforce-display-error'."
                                "\" | "
                                "sudo -S "
                                pacarch-pacman-filename
-                               " -Syyu ")
+                               " -Syyu "
+                               "--noconfirm")
                        pacarch-output-buffer-name nil)
       (shell-command (concat "echo "
                              "\""
@@ -194,7 +197,8 @@ If not, then return error or warning by `pacarch-enforce-display-error'."
                              "\" | "
                              "sudo -S "
                              pacarch-pacman-filename
-                             " -Syu ")
+                             " -Syu "
+                             "--noconfirm")
                      pacarch-output-buffer-name nil)))
   (switch-to-buffer-other-window pacarch-output-buffer-name)
   (message "[PacArch] Upgrade sources and packages action done."))
