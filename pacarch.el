@@ -113,10 +113,10 @@ Whether the `error' function."
                          pacarch-pacman-filename
                          " -S "
                          (pacarch-get-pkgname pacarch-pacman-filename)
-                         " --noconfirm")
+                         " --noconfirm"
+                         " &")
                  pacarch-output-buffer-name nil)
-  (switch-to-buffer-other-window pacarch-output-buffer-name)
-  (message "[PacArch] Install package action done."))
+  (switch-to-buffer-other-window pacarch-output-buffer-name))
 
 (defun pacarch-is-executable-file-exists (file)
   "Is executable files in `pacarch-executable-files' is exist?
@@ -146,7 +146,8 @@ If not, then return error or warning by `pacarch-enforce-display-error'."
                              "sudo -S "
                              pacarch-pacman-filename
                              " -Syy "
-                             "--noconfirm")
+                             "--noconfirm"
+                             " &")
                      pacarch-output-buffer-name nil)
     (shell-command (concat "echo "
                            "\""
@@ -155,10 +156,10 @@ If not, then return error or warning by `pacarch-enforce-display-error'."
                            "sudo -S "
                            pacarch-pacman-filename
                            " -Sy "
-                           "--noconfirm")
+                           "--noconfirm"
+                           " &")
                    pacarch-output-buffer-name nil))
-  (switch-to-buffer-other-window pacarch-output-buffer-name)
-  (message "[PacArch] Upgrade sources action done."))
+  (switch-to-buffer-other-window pacarch-output-buffer-name))
 
 (defun pacarch-upgrade-pkgs ()
   "Upgrade packages."
@@ -171,10 +172,10 @@ If not, then return error or warning by `pacarch-enforce-display-error'."
                          "sudo -S "
                          pacarch-pacman-filename
                          " -Su "
-                         "--noconfirm")
+                         "--noconfirm"
+                         " &")
                  pacarch-output-buffer-name nil)
-  (switch-to-buffer-other-window pacarch-output-buffer-name)
-  (message "[PacArch] Upgrade packages action done."))
+  (switch-to-buffer-other-window pacarch-output-buffer-name))
 
 (defun pacarch-upgrade-srcs-and-pkgs ()
   "Upgrade sources and packages."
@@ -189,7 +190,8 @@ If not, then return error or warning by `pacarch-enforce-display-error'."
                                "sudo -S "
                                pacarch-pacman-filename
                                " -Syyu "
-                               "--noconfirm")
+                               "--noconfirm"
+                               " &")
                        pacarch-output-buffer-name nil)
       (shell-command (concat "echo "
                              "\""
@@ -198,10 +200,10 @@ If not, then return error or warning by `pacarch-enforce-display-error'."
                              "sudo -S "
                              pacarch-pacman-filename
                              " -Syu "
-                             "--noconfirm")
+                             "--noconfirm"
+                             " &")
                      pacarch-output-buffer-name nil)))
-  (switch-to-buffer-other-window pacarch-output-buffer-name)
-  (message "[PacArch] Upgrade sources and packages action done."))
+  (switch-to-buffer-other-window pacarch-output-buffer-name))
 
 (provide 'pacarch)
 
