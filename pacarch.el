@@ -104,6 +104,7 @@ Whether the `error' function."
 (defun pacarch-install-pkg ()
   "Install package use pacman."
   (interactive)
+  (pacarch-is-aurtool)
   (pacarch-is-executable-file-exists pacarch-pacman-filename)
   (shell-command (concat "echo "
                          "\""
@@ -118,8 +119,16 @@ Whether the `error' function."
                  pacarch-output-buffer-name nil)
   (switch-to-buffer-other-window pacarch-output-buffer-name))
 
+(defun pacarch-is-aurtool ()
+  "Is `pacarch-pacman-filename' equal an arch user repository tool?"
+  (if (or (string= pacarch-pacman-filename "yay")
+          (string= pacarch-pacman-filename "yaourt"))
+      (if (eq pacarch-enforce-display-error t)
+          (error "[PacArch/ERROR] PacArch.el not support manage package use AURTOOL yet!")
+        (message "[PacArch/WARNING] PacArch.el not support manage package use AURTOOL yet!"))))
+
 (defun pacarch-is-executable-file-exists (file)
-  "Is executable files in `pacarch-executable-files' is exist?
+  "Is executable files in `pacarch-pacman-filename' is exist?
 If not, then return error or warning by `pacarch-enforce-display-error'."
   (if (not (executable-find file))
       (if pacarch-enforce-display-error
@@ -137,6 +146,7 @@ If not, then return error or warning by `pacarch-enforce-display-error'."
 (defun pacarch-upgrade-srcs ()
   "Upgrade sources in '/etc/pacman.conf'."
   (interactive)
+  (pacarch-is-aurtool)
   (pacarch-is-executable-file-exists pacarch-pacman-filename)
   (if pacarch-enforce-upgrade-srcs
       (shell-command (concat "echo "
@@ -164,6 +174,7 @@ If not, then return error or warning by `pacarch-enforce-display-error'."
 (defun pacarch-upgrade-pkgs ()
   "Upgrade packages."
   (interactive)
+  (pacarch-is-aurtool)
   (pacarch-is-executable-file-exists pacarch-pacman-filename)
   (shell-command (concat "echo "
                          "\""
@@ -180,6 +191,7 @@ If not, then return error or warning by `pacarch-enforce-display-error'."
 (defun pacarch-upgrade-srcs-and-pkgs ()
   "Upgrade sources and packages."
   (interactive)
+  (pacarch-is-aurtool)
   (pacarch-is-executable-file-exists pacarch-pacman-filename)
   (let ((passwd (pacarch-get-passwd)))
     (if pacarch-enforce-upgrade-srcs
