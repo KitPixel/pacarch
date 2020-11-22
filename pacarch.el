@@ -101,6 +101,7 @@ Whether the `error' function."
   :group 'pacarch)
 
 
+;;;###autoload
 (defun pacarch-install-pkg ()
   "Install package use pacman."
   (interactive)
@@ -143,6 +144,7 @@ If not, then return error or warning by `pacarch-enforce-display-error'."
   "Get package name from mini-buffer."
   (read-from-minibuffer (concat "[PacArch] Package name you want to install use " exefile ": ")))
 
+;;;###autoload
 (defun pacarch-upgrade-srcs ()
   "Upgrade sources in '/etc/pacman.conf'."
   (interactive)
@@ -171,6 +173,7 @@ If not, then return error or warning by `pacarch-enforce-display-error'."
                    pacarch-output-buffer-name nil))
   (switch-to-buffer-other-window pacarch-output-buffer-name))
 
+;;;###autoload
 (defun pacarch-upgrade-pkgs ()
   "Upgrade packages."
   (interactive)
@@ -188,6 +191,7 @@ If not, then return error or warning by `pacarch-enforce-display-error'."
                  pacarch-output-buffer-name nil)
   (switch-to-buffer-other-window pacarch-output-buffer-name))
 
+;;;###autoload
 (defun pacarch-upgrade-srcs-and-pkgs ()
   "Upgrade sources and packages."
   (interactive)
