@@ -7,7 +7,7 @@
 ;; Copyright (C) 2020, KiteAB, all rights reserved.
 ;; Created: 2020-11-10 20:41:29
 ;; Version: 0.3
-;; Last-Updated: 2020-11-14 13:42:54
+;; Last-Updated: 2020-12-11 23:06:43
 ;;           By: KiteAB
 ;; URL: https://github.com/KitPixel/pacarch.el
 ;; Keywords:
