@@ -101,26 +101,25 @@ Whether the `error' function."
   :group 'pacarch)
 
 
-;;;###autoload
 (defun pacarch-install-pkg ()
   "Install package use pacman."
   (interactive)
-  (pacarch-is-aurtool)
-  (pacarch-is-executable-file-exists pacarch-pacman-filename)
+  (pacarch--is-aurtool)
+  (pacarch--is-executable-file-exists pacarch-pacman-filename)
   (shell-command (concat "echo "
                          "\""
-                         (pacarch-get-passwd)
+                         (pacarch--get-passwd)
                          "\" | "
                          "sudo -S "
                          pacarch-pacman-filename
                          " -S "
-                         (pacarch-get-pkgname pacarch-pacman-filename)
+                         (pacarch--get-pkgname pacarch-pacman-filename)
                          " --noconfirm"
                          " &")
                  pacarch-output-buffer-name nil)
   (switch-to-buffer-other-window pacarch-output-buffer-name))
 
-(defun pacarch-is-aurtool ()
+(defun pacarch--is-aurtool ()
   "Is `pacarch-pacman-filename' equal an arch user repository tool?"
   (if (or (string= pacarch-pacman-filename "yay")
           (string= pacarch-pacman-filename "yaourt"))
@@ -128,7 +127,7 @@ Whether the `error' function."
           (error "[PacArch/ERROR] PacArch.el not support manage package use AURTOOL yet!")
         (message "[PacArch/WARNING] PacArch.el not support manage package use AURTOOL yet!"))))
 
-(defun pacarch-is-executable-file-exists (file)
+(defun pacarch--is-executable-file-exists (file)
   "Is executable files in `pacarch-pacman-filename' is exist?
 If not, then return error or warning by `pacarch-enforce-display-error'."
   (if (not (executable-find file))
@@ -136,24 +135,23 @@ If not, then return error or warning by `pacarch-enforce-display-error'."
           (error (concat "[PacArch/ERROR] " file "not found!"))
         (message "[PacArch/WARNING] " file "not found!"))))
 
-(defun pacarch-get-passwd ()
+(defun pacarch--get-passwd ()
   "Get password for current user."
   (read-passwd "[PacArch] Password: "))
 
-(defun pacarch-get-pkgname (exefile)
+(defun pacarch--get-pkgname (exefile)
   "Get package name from mini-buffer."
   (read-from-minibuffer (concat "[PacArch] Package name you want to install use " exefile ": ")))
 
-;;;###autoload
 (defun pacarch-upgrade-srcs ()
   "Upgrade sources in '/etc/pacman.conf'."
   (interactive)
-  (pacarch-is-aurtool)
-  (pacarch-is-executable-file-exists pacarch-pacman-filename)
+  (pacarch--is-aurtool)
+  (pacarch--is-executable-file-exists pacarch-pacman-filename)
   (if pacarch-enforce-upgrade-srcs
       (shell-command (concat "echo "
                              "\""
-                             (pacarch-get-passwd)
+                             (pacarch--get-passwd)
                              "\" | "
                              "sudo -S "
                              pacarch-pacman-filename
@@ -163,7 +161,7 @@ If not, then return error or warning by `pacarch-enforce-display-error'."
                      pacarch-output-buffer-name nil)
     (shell-command (concat "echo "
                            "\""
-                           (pacarch-get-passwd)
+                           (pacarch--get-passwd)
                            "\" | "
                            "sudo -S "
                            pacarch-pacman-filename
@@ -173,15 +171,14 @@ If not, then return error or warning by `pacarch-enforce-display-error'."
                    pacarch-output-buffer-name nil))
   (switch-to-buffer-other-window pacarch-output-buffer-name))
 
-;;;###autoload
 (defun pacarch-upgrade-pkgs ()
   "Upgrade packages."
   (interactive)
-  (pacarch-is-aurtool)
-  (pacarch-is-executable-file-exists pacarch-pacman-filename)
+  (pacarch--is-aurtool)
+  (pacarch--is-executable-file-exists pacarch-pacman-filename)
   (shell-command (concat "echo "
                          "\""
-                         (pacarch-get-passwd)
+                         (pacarch--get-passwd)
                          "\" | "
                          "sudo -S "
                          pacarch-pacman-filename
@@ -191,13 +188,12 @@ If not, then return error or warning by `pacarch-enforce-display-error'."
                  pacarch-output-buffer-name nil)
   (switch-to-buffer-other-window pacarch-output-buffer-name))
 
-;;;###autoload
 (defun pacarch-upgrade-srcs-and-pkgs ()
   "Upgrade sources and packages."
   (interactive)
-  (pacarch-is-aurtool)
-  (pacarch-is-executable-file-exists pacarch-pacman-filename)
-  (let ((passwd (pacarch-get-passwd)))
+  (pacarch--is-aurtool)
+  (pacarch--is-executable-file-exists pacarch-pacman-filename)
+  (let ((passwd (pacarch--get-passwd)))
     (if pacarch-enforce-upgrade-srcs
         (shell-command (concat "echo "
                                "\""
