@@ -2,7 +2,7 @@
 
 ;; Filename: pacarch.el
 ;; Description: Pacman in Emacs
-;; Author: KiteAB <kiteabpl@outlook.com>
+;; Author: KiteAB (https://kiteab.ga)
 ;; Maintainer: KiteAB <kiteabpl@outlook.com>
 ;; Copyright (C) 2020, KiteAB, all rights reserved.
 ;; Created: 2020-11-10 20:41:29
