@@ -2,12 +2,12 @@
 
 ;; Filename: pacarch.el
 ;; Description: Pacman in Emacs
-;; Author: KiteAB (https://kiteab.ga)
-;; Maintainer: KiteAB <kiteabpl@outlook.com>
+;; Author: KiteAB <kiteabpl@outlook.com> (https://kiteab.ga)
+;; Maintainer: KiteAB <kiteabpl@outlook.com> (https://kiteab.ga)
 ;; Copyright (C) 2020, KiteAB, all rights reserved.
 ;; Created: 2020-11-10 20:41:29
 ;; Version: 0.3
-;; Last-Updated: 2020-12-11 23:06:43
+;; Last-Updated: 2020-12-19 12:03:00
 ;;           By: KiteAB
 ;; URL: https://github.com/KitPixel/pacarch.el
 ;; Keywords:
@@ -73,7 +73,10 @@
 ;;
 ;;
 
+;;; Require
+
 ;;; Code:
+
 (defgroup pacarch nil
   "Pacman in Emacs."
   :prefix "pacarch-"
