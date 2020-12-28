@@ -126,7 +126,7 @@ Whether the `error' function."
   "Is `pacarch-pacman-filename' equal an arch user repository tool?"
   (if (or (string= pacarch-pacman-filename "yay")
           (string= pacarch-pacman-filename "yaourt"))
-      (if (eq pacarch-enforce-display-error t)
+      (if pacarch-enforce-display-error
           (error "[PacArch/ERROR] PacArch.el not support manage package use AURTOOL yet!")
         (message "[PacArch/WARNING] PacArch.el not support manage package use AURTOOL yet!"))))
 
