@@ -1,4 +1,4 @@
-;;; pacarch.el --- Pacman in Emacs
+;;; pacarch.el --- Pacman in Emacs  -*- lexical-binding: t; -*-
 
 ;; Filename: pacarch.el
 ;; Description: Pacman in Emacs
@@ -7,7 +7,7 @@
 ;; Copyright (C) 2020, KiteAB, all rights reserved.
 ;; Created: 2020-11-10 20:41:29
 ;; Version: 0.3
-;; Last-Updated: 2020-12-19 12:03:00
+;; Last-Updated: 2021-01-20 21:15:49
 ;;           By: KiteAB
 ;; URL: https://github.com/KitPixel/pacarch.el
 ;; Keywords:
