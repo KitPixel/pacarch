@@ -4,7 +4,7 @@
 ;; Description: Pacman in Emacs
 ;; Author: KiteAB <kiteabpl@outlook.com> (https://kiteab.ga)
 ;; Maintainer: KiteAB <kiteabpl@outlook.com> (https://kiteab.ga)
-;; Copyright (C) 2020, KiteAB, all rights reserved.
+;; Copyright (C) 2021, KiteAB, all rights reserved.
 ;; Created: 2020-11-10 20:41:29
 ;; Version: 0.3
 ;; Last-Updated: 2021-01-20 21:15:49
